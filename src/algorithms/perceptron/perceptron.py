@@ -21,3 +21,17 @@ class Perceptron:
                 if y[idx] * linear_output <= 0:
                     self.weights += self.lr * y[idx] * x_i
                     self.bias += self.lr * y[idx]
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        linear_output: np.ndarray = np.dot(x, self.weights) + self.bias
+        return np.sign(linear_output)
+
+
+if __name__ == "__main__":
+    X = np.array([[1, 2], [2, 3], [3, 4], [5, 5]])
+    y = np.array([1, 1, -1, -1])
+
+    model = Perceptron(learning_rate=0.01, n_iterations=1000)
+    model.fit(X, y)
+    predictions = model.predict(X)
+    print(predictions)
